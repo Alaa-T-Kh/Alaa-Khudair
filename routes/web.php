@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,5 +26,16 @@ Route::post('/about', function () {
         '3' => 'Sales',
         ];
     return view('about', Compact('name','departments'));
+
+});
+Route::get('tasks', function () {
+    return view('tasks');
+});
+Route::post('create', function () {
+    $task_name = $_POST['name'];
+    DB::table(table:'tasks')->insert([
+        'name' => $task_name,
+    ]);
+    return view('tasks');
 
 });
