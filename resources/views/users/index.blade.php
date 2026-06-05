@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1>Users Management App</h1>
+        <h1>Users Management</h1>
         <div class="offset-md-2 col-md-8">
             <div class="card">
                 @if (isset($user))
@@ -13,17 +13,14 @@
                     <form action="{{ url('users/update') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $user->id }}">
-
                         <div class="mb-3">
                             <label for="user-name" class="form-label">Name</label>
                             <input type="text" name="name" id="user-name" class="form-control" value="{{ $user->name }}" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="user-email" class="form-label">Email</label>
                             <input type="email" name="email" id="user-email" class="form-control" value="{{ $user->email }}" required>
                         </div>
-
                         <div>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-save me-2"></i>Update User
@@ -42,17 +39,14 @@
                             <label for="user-name" class="form-label">Name</label>
                             <input type="text" name="name" id="user-name" class="form-control" value="" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="user-email" class="form-label">Email</label>
                             <input type="email" name="email" id="user-email" class="form-control" value="" required>
                         </div>
-
                         <div class="mb-3">
                             <label for="user-password" class="form-label">Password</label>
                             <input type="password" name="password" id="user-password" class="form-control" required>
                         </div>
-
                         <div>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-plus me-2"></i>Add User
@@ -61,7 +55,17 @@
                     </form>
                 </div>
                 @endif
-            </div>
+                </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
 
             <div class="card mt-4">
                 <div class="card-header">
@@ -89,12 +93,9 @@
                                         </button>
                                     </form>
 
-                                    <form action="{{ url('users/edit/' . $u->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-warning">
-                                            <i class="fa fa-edit me-2"></i>Edit
-                                        </button>
-                                    </form>
+                                    <a href="{{ url('users/edit/' . $u->id) }}" class="btn btn-warning">
+                                        <i class="fa fa-edit me-2"></i>Edit
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -102,6 +103,5 @@
                     </table>
                 </div>
             </div>
-        </div>
     </div>
 @endsection

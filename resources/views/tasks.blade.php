@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mt-4">
-        <h1>Task List App</h1>
+        <h1>Tasks List </h1>
         <div class="offset-md-2 col-md-8">
+
+
             <div class="card">
                 @if (isset($task))
                 <div class="card-header">
@@ -38,9 +40,9 @@
                         <!-- Task Name -->
                         <div class="mb-3">
                             <label for="task-name" class="form-label">Task</label>
-                            <input type="text" name="name" id="task-name" class="form-control" value="">
+                            <input type="text" name="name" id="task-name" class="form-control " value="">
                         </div>
-
+`
                         <!-- Add Task Button -->
                         <div>
                             <button type="submit" class="btn btn-primary">
@@ -51,7 +53,15 @@
                 </div>
                 @endif
             </div>
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <!-- Current Tasks -->
             <div class="card mt-4">
                 <div class="card-header">
@@ -76,17 +86,13 @@
                                             <i class="fa fa-trash me-2"></i>Delete
                                         </button>
                                     </form>
-                                    <form action="/edit/{{ $task->id }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-warning">
-                                            <i class="fa fa-edit me-2"></i>Edit
-                                        </button>
-                                    </form>
+                                    <a href="/edit/{{ $task->id }}" class="btn btn-warning">
+                                        <i class="fa fa-edit me-2"></i>Edit
+                                    </a>
                                 </td>
                             </tr>
 
                         @endforeach
-
 
                         </tbody>
                     </table>
